@@ -1,0 +1,51 @@
+﻿<table id="example" class="hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>Mascota</th>
+            <th>Dueño</th>
+            <th>Fecha de registro</th>
+            <th>Estado de Adopcion</th>
+            <th>Estado de Perdida</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.petsReport)
+        {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Owner</td>
+            <td>@item.RegistrationDate</td>
+            <td>@item.AdoptionStatus</td>
+            <td>@item.LostStatus</td>
+            <td>@item.Type</td>
+            <td>@item.Age</td>
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Mascota</th>
+            <th>Dueño</th>
+            <th>Fecha de registro</th>
+            <th>Estado de Adopcion</th>
+            <th>Estado de Perdida</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+
+    loadTable();
+    function loadTable() {
+        var table = $("#example").DataTable({
+            lengthChange: false,
+            buttons: ['copy', 'excel', 'pdf', 'colvis']
+        });
+        table.buttons().container().insertBefore("#example_filter");
+    }
+
+</script>

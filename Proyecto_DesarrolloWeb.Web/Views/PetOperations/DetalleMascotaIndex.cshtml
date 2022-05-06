@@ -1,0 +1,89 @@
+﻿<section class="container py-5">
+    <div class="pt-5 pb-3 d-lg-flex align-items-center gx-5">
+
+        <div class="col-lg-3">
+            <h2 class="h2 py-5 typo-space-line" id="namePet"></h2>
+            <p class="text-muted light-300" id="descPet">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+        </div>
+
+        <div class="col-lg-9 row" id="ImagesPet">
+        </div>
+
+    </div>
+    <div class="col-lg-4 offset-4 row d-none" id="btnSoliAdoptar" onclick="GetDataOwner()">
+        <div class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4">Solicitar Adoptar Mascota</div>
+    </div>
+</section>
+<script>
+var PetOwner = 0;
+function GetDataOwner() {
+    console.log("PetOwner",PetOwner);
+    Swal.fire(
+        'Dueño: '+PetOwner.name,
+        'Correo: '+PetOwner.email,
+        'info'
+    );
+}
+    $(document).ready(function(){
+        GetMascotasByStatus();
+
+        function GetMascotasByStatus() {
+            $.ajax({
+                type: "Post",
+                url: '@Url.Action("GetDetalleMascota","PetOperations")',
+                data:{
+                    id:"@ViewBag.Identification"
+                },
+                success: function (data) {
+                    console.log("GetDetalleMascota",data.data);
+                    if (data.code == 200) {
+                        var htmlDesc = '';
+                        var htmlImagesPet = '';
+                        htmlDesc += 'Edad: '+ data.data.age + '<br>';
+                        htmlDesc += 'Tipo: '+ data.data.type + '<br>';
+                        htmlDesc += 'Dueño: '+ data.data.owner;
+                        $.each(data.data.petImage, function(key, value) {
+                            console.log("key",key);
+                            console.log("value",value);
+                            htmlImagesPet += '<div class="team-member col-md-4">';
+                            htmlImagesPet += '<img width="40px" class="team-member-img img-fluid rounded-circle p-4" src="data:image/jpeg;base64,' + value.photo + '" alt="' + data.data.name + '" style="width: 250px; height: 250px;">';
+                            htmlImagesPet += '</div>';
+                        });
+                        setTimeout(function(){
+                            $("#namePet").html(data.data.name);
+                            $("#descPet").html(htmlDesc);
+                            $("#ImagesPet").html(htmlImagesPet);
+
+                            var IdOwner = data.data.idUser;
+                            var PetRescueDBUser = JSON.parse(localStorage.getItem('PetRescueDBUser'));
+                            console.log("IdOwner",IdOwner);
+                            console.log("PetRescueDBUser",PetRescueDBUser);
+                            PetOwner = {
+                                name : data.data.owner,
+                                email : data.data.email
+                            };
+                            if(data.data.adoptionStatus == "Registered" && data.data.lostStatus != "Lost"){
+                                //Validar Adopcion de mascota
+                                if(PetRescueDBUser != null){
+                                    if(IdOwner != PetRescueDBUser.id){
+                                        $("#btnSoliAdoptar").removeClass("d-none");
+                                    }
+                                }else{
+                                    $("#btnSoliAdoptar").removeClass("d-none");
+                                }
+                            }
+                            //Swal.fire('Carga de info exitosa', '', 'info')
+                        },500);
+                    } else {
+                        alert(data.msg);
+                    }
+                },error: function (data) {
+                    console.log("data",data);
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,90 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\bootstrap.css" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\assets\css\boxicon.min.css" />
+    <None Include="wwwroot\assets\css\custom.css" />
+    <None Include="wwwroot\assets\css\templatemo.css" />
+    <None Include="wwwroot\assets\fonts\boxicons.eot" />
+    <None Include="wwwroot\assets\fonts\boxicons.svg" />
+    <None Include="wwwroot\assets\fonts\boxicons.ttf" />
+    <None Include="wwwroot\assets\fonts\boxicons.woff" />
+    <None Include="wwwroot\assets\fonts\boxicons.woff2" />
+    <None Include="wwwroot\assets\img\apple-icon.png" />
+    <None Include="wwwroot\assets\img\banner-bg-01.jpg" />
+    <None Include="wwwroot\assets\img\banner-bg-02.jpg" />
+    <None Include="wwwroot\assets\img\banner-bg-03.jpg" />
+    <None Include="wwwroot\assets\img\banner-img-01.svg" />
+    <None Include="wwwroot\assets\img\banner-img-02.svg" />
+    <None Include="wwwroot\assets\img\favicon.ico" />
+    <None Include="wwwroot\assets\img\feature-work-1-large.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-1.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-2-large.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-2.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-3-large.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-3.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-4-large.jpg" />
+    <None Include="wwwroot\assets\img\feature-work-4.jpg" />
+    <None Include="wwwroot\assets\img\our-work-01.jpg" />
+    <None Include="wwwroot\assets\img\our-work-02.jpg" />
+    <None Include="wwwroot\assets\img\our-work-03.jpg" />
+    <None Include="wwwroot\assets\img\our-work-04.jpg" />
+    <None Include="wwwroot\assets\img\our-work-05.jpg" />
+    <None Include="wwwroot\assets\img\our-work-06.jpg" />
+    <None Include="wwwroot\assets\img\pricing.svg" />
+    <None Include="wwwroot\assets\img\recent-work-01.jpg" />
+    <None Include="wwwroot\assets\img\recent-work-02.jpg" />
+    <None Include="wwwroot\assets\img\recent-work-03.jpg" />
+    <None Include="wwwroot\assets\img\recent-work-04.jpg" />
+    <None Include="wwwroot\assets\img\recent-work-05.jpg" />
+    <None Include="wwwroot\assets\img\recent-work-06.jpg" />
+    <None Include="wwwroot\assets\img\related-post-01.jpg" />
+    <None Include="wwwroot\assets\img\related-post-02.jpg" />
+    <None Include="wwwroot\assets\img\related-post-03.jpg" />
+    <None Include="wwwroot\assets\img\services-01.jpg" />
+    <None Include="wwwroot\assets\img\services-02.jpg" />
+    <None Include="wwwroot\assets\img\services-03.jpg" />
+    <None Include="wwwroot\assets\img\services-04.jpg" />
+    <None Include="wwwroot\assets\img\services-05.jpg" />
+    <None Include="wwwroot\assets\img\services-06.jpg" />
+    <None Include="wwwroot\assets\img\services-07.jpg" />
+    <None Include="wwwroot\assets\img\services-08.jpg" />
+    <None Include="wwwroot\assets\img\team-01.jpg" />
+    <None Include="wwwroot\assets\img\team-02.jpg" />
+    <None Include="wwwroot\assets\img\team-03.jpg" />
+    <None Include="wwwroot\assets\img\team-04.jpg" />
+    <None Include="wwwroot\assets\img\team-05.jpg" />
+    <None Include="wwwroot\assets\img\team-06.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-01-small.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-01.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-02-small.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-02.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-03-small.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-03.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-04-small.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-04.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-05-small.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-05.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-06-small.jpg" />
+    <None Include="wwwroot\assets\img\work-slide-06.jpg" />
+    <None Include="wwwroot\assets\img\work.svg" />
+    <None Include="wwwroot\assets\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\assets\js\custom.js" />
+    <None Include="wwwroot\assets\js\fslightbox.js" />
+    <None Include="wwwroot\assets\js\isotope.pkgd.js" />
+    <None Include="wwwroot\assets\js\jquery.min.js" />
+    <None Include="wwwroot\assets\js\templatemo.js" />
+    <None Include="wwwroot\assets\js\templatemo.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.10" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>

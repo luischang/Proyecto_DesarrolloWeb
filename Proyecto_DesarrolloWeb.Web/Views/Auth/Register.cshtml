@@ -1,0 +1,97 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section class="container py-5">
+
+    <h1 class="col-12 col-xl-12 h2 text-primary pt-3 text-center mb-5">Inicio de Sesión</h1>
+    <div class="row pb-4">
+
+        <!-- Start Contact Form -->
+        <div class="offset-md-2 col-lg-8">
+
+
+            <div class="col-12">
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg light-300" id="name" name="name" placeholder="Nombre">
+                    <label for="floatingemail light-300">Nombre</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg light-300" id="lastname" name="lastname" placeholder="Apellido">
+                    <label for="floatingemail light-300">Apellido</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg light-300" id="email" name="email" placeholder="Email">
+                    <label for="floatingemail light-300">Email</label>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control form-control-lg light-300" id="contra" name="contra" placeholder="Contraseña">
+                    <label for="floatingsubject light-300">Contraseña</label>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-12 m-auto text-end">
+                <button onclick="funcRegister()" type="button" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Registrarme</button>
+            </div>
+
+        </div>
+        <!-- End Contact Form -->
+        <div class="offset-md-2 col-lg-8 mt-4">
+
+            <div class="col-md-12 col-12 m-auto text-end">
+                <button onclick="redirectLogin()" type="button" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Inicia Sesion</button>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<script>
+    function funcRegister() {
+        let vName = $("#name").val();
+        let vLastname = $("#lastname").val();
+        let vEmail = $("#email").val();
+        let vContra = $("#contra").val();
+
+        var usuarioData = {
+            Name: vName,
+            Lastname: vLastname,
+            Email: vEmail,
+            Contra: vContra,
+        };
+        console.log("usuarioData",usuarioData);
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("Registro","Auth")',
+            data:{
+                usuario: usuarioData
+            },
+            success: function (data) {
+                if (data.code == 200) {
+                    alert(data.msg);
+                    localStorage.removeItem('PetRescueDBToken');
+                    redirectLogin();
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    }
+    function redirectRegistrer(){
+        window.location.href = '@Url.Action("Register","Auth")';
+    }
+
+    function redirectLogin(){
+        window.location.href = '@Url.Action("Login","Auth")';
+    }
+
+</script>

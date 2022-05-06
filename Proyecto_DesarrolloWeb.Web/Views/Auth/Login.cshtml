@@ -1,0 +1,129 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section class="container py-5">
+
+    <h1 class="col-12 col-xl-12 h2 text-primary pt-3 text-center mb-5">Inicio de Sesión</h1>
+    <div class="row pb-4">
+
+        <!-- Start Contact Form -->
+        <div class="offset-md-2 col-lg-8">
+
+
+            <div class="col-12">
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg light-300" id="email" name="email" placeholder="Email">
+                    <label for="floatingemail light-300">Email</label>
+                </div>
+            </div><!-- End Input Email -->
+
+            <div class="col-12">
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control form-control-lg light-300" id="password" name="password" placeholder="Contraseña">
+                    <label for="floatingsubject light-300">Contraseña</label>
+                </div>
+            </div><!-- End Input Subject -->
+
+            <div class="col-md-12 col-12 m-auto text-end">
+                <button onclick="funcLogin()" type="button" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Ingresar</button>
+            </div>
+
+        </div>
+        <!-- End Contact Form -->
+        <div class="offset-md-2 col-lg-8 mt-4">
+
+            <div class="col-md-12 col-12 m-auto text-end">
+                <button onclick="redirectRegistrer()" type="button" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Registrate</button>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<script>
+    function redirectToHome() {
+        let timerInterval
+        Swal.fire({
+          title: 'Login Exitoso!',
+          html: 'Redirigiendo al Inicio <b></b> milliseconds.',
+          timer: 2000,
+          timerProgressBar: true,
+          allowEscapeKey : false,
+          allowOutsideClick: false,
+          //confirmButtonText: 'Ir al Inicio',
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /*if (result.isConfirmed) {
+           window.location.href = '@Url.Action("Index","Home")';
+          }*/
+          if (result.dismiss === Swal.DismissReason.timer) {
+            window.location.href = '@Url.Action("Index","Home")';
+          }
+        })
+    }
+    function funcLogin() {
+        let vEmail = $("#email").val();
+        let vContra = $("#password").val();
+
+        var formData = new FormData();
+        formData.append("Email", vEmail);
+        formData.append("Contra", vContra);
+        console.log("vEmail",vEmail);
+        console.log("vContra",vContra);
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("InicioSesion","Auth")',
+            data: formData,
+            //data: {
+            //    name: vName,
+            //    idType: vType,
+            //    sex: vSex,
+            //    idSize: vSize,
+            //    idAge: vAge,
+            //    idBreed: vBreed,
+            //    temperament: vTemperament,
+            //    url: vUrl,
+            //    images: files[0]
+            //},
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.code == 200) {
+                    console.log(data.msg);
+
+                    //var dateActual = new Date(1638334304163);
+                    var dateActual = new Date();
+                    console.log("dateActual",dateActual.getTime());
+
+                    localStorage.setItem('PetRescueDBToken', data.msg);
+                    localStorage.setItem('PetRescueDBUser', JSON.stringify(data.data));
+                    localStorage.setItem('PetRescueDBDateLogin', JSON.stringify(dateActual.getTime()));
+
+                    var PetRescueDBUser = JSON.parse(localStorage.getItem('PetRescueDBUser'));
+                    console.log("PetRescueDBUser",PetRescueDBUser);
+                    redirectToHome();
+                    //window.location.href = '@Url.Action("Index","Home")';
+                } else {
+                    alert("Usuario o contraseña incorrectos");
+                }
+            }
+        });
+    }
+    function redirectRegistrer(){
+        window.location.href = '@Url.Action("Register","Auth")';
+    }
+
+</script>

@@ -1,0 +1,144 @@
+﻿<section class="container py-5">
+    <h1 class="col-12 col-xl-8 h2 text-left text-primary pt-3">Registrar Mascota Perdida</h1>
+    <h2 class="col-12 col-xl-8 h4 text-left regular-400">Este es un espacio para que registres a tu mascota perdida </h2>
+    <p class="col-12 col-xl-8 text-left text-muted pb-5 light-300">
+        Recuerda que mientras más datos brindes, será mejor para que la gente pueda
+        darse una idea de como es la mascota.
+    </p>
+
+    <div class="row pb-4">
+        <!-- Start Contact Form -->
+        <div class="col-lg-8 ">
+            <div class="contact-form row">
+                @*<form class="contact-form row" method="post" action="#" role="form">*@
+
+                <div class="col-lg-12 mb-4">
+                    <h2 class="col-12 col-xl-8 h4 text-left regular-400">Mascota* </h2>
+                    <p class="col-12 col-xl-12 text-left text-muted light-300">
+                        Elige una de tus mascotas.
+                    </p>
+                    <select class="custom-select form-select form-select-lg light-300" style="height: calc(3.5rem + 2px);" id="selPet">
+                        <option class="light-300" selected>Seleccionar Mascota...</option>
+                        @foreach (var item in ViewBag.userPets)
+                        {
+                            <option class="light-300" value="@item.Id">@item.Name</option>
+                        }
+
+                    </select>
+                </div><!-- End Input Especie -->
+
+                <div class="col-lg-12 mb-4">
+                    <h2 class="col-12 col-xl-8 h4 text-left regular-400">Fecha de la pérdida* </h2>
+                    <p class="col-12 col-xl-12 text-left text-muted light-300">
+                        Selecciona la fecha en la que se perdio tu mascota.
+                    </p>
+                    <div class="col-lg-12 mb-4">
+                        <input id="myID" type="text" class="form-control form-control-lg light-300" style="height: calc(3.5rem + 2px) !important;" value="Fecha de la pérdida..." />
+                    </div><!-- End Input -->
+                </div>
+
+                <div class="row pb-xl-5">
+                    <h2 class="col-12 col-xl-8 h4 text-left regular-400">Descripción </h2>
+                    <p class="col-12 col-xl-12 text-left text-muted light-300">
+                        Cuentanos donde se perdio, que caracteristicas tiene tu mascota, que ropa u objeto tenia al momento que se perdio. Mientras mas detalles brindes mejor.
+                    </p>
+                    <div class="col-lg-12 mb-xl-n5">
+                        <textarea id="texDescription" class="form-control form-control-lg light-300" rows="8"></textarea>
+                    </div><!-- End Input -->
+                </div>
+
+
+                <div class="col-md-12 col-12 m-auto text-end">
+                    <button id="btnRegister" type="submit" onclick="funcRegistrar()" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Registrar</button>
+                </div>
+
+
+            </div>
+            @*</form>*@
+        </div>
+        <!-- End Contact Form -->
+    </div>
+
+    @*<input id="myID" type="text" />*@
+
+</section>
+<!-- End Contact -->
+
+<script>
+    var PetRescueDBUser = JSON.parse(localStorage.getItem('PetRescueDBUser'));
+    flatpickr("#myID", {});
+
+    function funcRegistrar() {
+
+        let vIdPet = $("#selPet").val();
+        let vDateLost = $("#myID").val();
+        let vDescription = $("#texDescription").val();
+
+        var formData = new FormData();
+        formData.append("IdPet", vIdPet);
+        formData.append("DateLost", vDateLost);
+        formData.append("Description", vDescription);
+        formData.append("idUser", PetRescueDBUser.id);
+
+        //
+        //alert(vName);
+        //alert(vName);
+        //alert(vType);
+        //alert(vSex);
+        //alert(vSize);
+        //alert(vAge);
+        //alert(vBreed);
+        //alert(vTemperament);
+        //alert(vUrl);
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("InsertLostPet", "Pet")',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (exito) {
+                if (exito) {
+                    redirectToHome();
+                    @*alert("Se registro correctamente");
+                    //cargarListadoClientes();
+
+                    newUrl = '@Url.Action("Index", "Home")';
+                    location.href = newUrl;*@
+
+                } else {
+                    alert("La mascota ya esta registrada como perdida.");
+                }
+            }
+        });
+    }
+
+    function redirectToHome() {
+        let timerInterval
+        Swal.fire({
+          title: 'Registro Exitoso!',
+          html: 'Redirigiendo al Inicio <b></b> milliseconds.',
+          timer: 2000,
+          timerProgressBar: true,
+          allowEscapeKey : false,
+          allowOutsideClick: false,
+          //confirmButtonText: 'Ir al Inicio',
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            window.location.href = '@Url.Action("Index","Home")';
+          }
+        })
+    }
+
+</script>

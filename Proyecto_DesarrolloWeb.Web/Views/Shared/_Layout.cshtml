@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_DesarrolloWeb.Web</title>
+    <!--
+    TemplateMo 561 Purple Buzz
+    -->
+    <link rel="apple-touch-icon" href="~/assets/img/paw-192.png">
+    <link rel="shortcut icon" type="~/image/x-icon" href="~/assets/img/paw-192.png">
+    <!-- Load Require CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font CSS -->
+    <link href="~/assets/css/boxicon.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Load Tempalte CSS -->
+    <link rel="stylesheet" href="~/assets/css/templatemo.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+
+
+    <!-- Stylesheet -->
+
+    <link href="tagsinput.css" rel="stylesheet" type="text/css">
+
+    <!-- JavaScript -->
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap-tagsinput.css">
+
+
+    <!-- Bootstrap -->
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Load jQuery require for isotope -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <!-- Isotope -->
+    <script src="~/assets/js/isotope.pkgd.js"></script>
+    <!-- Page Script -->
+    <script>
+        $(window).load(function () {
+            // init Isotope
+            var $projects = $('.projects').isotope({
+                itemSelector: '.project',
+                layoutMode: 'fitRows'
+            });
+            $(".filter-btn").click(function () {
+                var data_filter = $(this).attr("data-filter");
+                $projects.isotope({
+                    filter: data_filter
+                });
+                $(".filter-btn").removeClass("active");
+                $(".filter-btn").removeClass("shadow");
+                $(this).addClass("active");
+                $(this).addClass("shadow");
+                return false;
+            });
+        });
+
+            //$(document).ready(function () {
+            //    $(window).keydown(function (event) {
+            //        if (event.keyCode == 13) {
+            //            event.preventDefault();
+            //            //return false;
+            //        }
+            //    });
+            //});
+    </script>
+    <!-- Templatemo -->
+    <script src="~/assets/js/templatemo.js"></script>
+    <!-- Custom -->
+    <script src="~/assets/js/custom.js"></script>
+    <!-- Tag input -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/bootstrap-tagsinput.min.js"></script>
+
+
+
+
+
+    <!-- DatePicker: flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- cdn.datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.0.1/b-colvis-2.0.1/b-html5-2.0.1/b-print-2.0.1/datatables.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.0.1/b-colvis-2.0.1/b-html5-2.0.1/b-print-2.0.1/datatables.min.js"></script>
+
+</head>
+<body>
+    <!-- Header -->
+    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand h1" href="@Url.Action("Index","Home")">
+                <span class="material-icons">
+                    pets
+                </span>
+                <span class="text-dark h4">Family</span> <span class="text-primary h4">Pets</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
+                <div class="flex-fill mx-xl-5 mb-2">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("Index","Home")">Home</a>
+                        </li>
+                        <li class="nav-item d-none" id="aprobarUsuarios">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("AprobarUsuariosIndex","User")">Aprobar Usuarios</a>
+                        </li>
+                        <li class="nav-item d-none" id="PetReport">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("PetReport","Report")">Reporte de Mascotas</a>
+                        </li>
+                        <li class="nav-item d-none" id="UserReport">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("UserReport","Report")">Reporte de Usuarios</a>
+                        </li>
+                        <li class="nav-item d-none" id="RegisterPet">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("CreatePet","Pet")">Registrar Mascota</a>
+                        </li>
+                        <li class="nav-item d-none" id="RegisterPetFound">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("RegisterPetFound","Pet")">Mascota Encontrada</a>
+                        </li>
+                        <li class="nav-item d-none" id="RegisterLostPet">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("RegisterLostPet","Pet")">Registrar Mascota Perdida</a>
+                        </li>
+                        <li class="nav-item d-none" id="RegisterPetForAdoption">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="@Url.Action("RegisterPetForAdoption","Pet")">Registrar Mascota en Adopción</a>
+                        </li>
+ @*                       <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="work.html">Work</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="pricing.html">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact</a>
+                        </li>*@
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    @*<a class="nav-link" href="#"><i class='bx bx-bell bx-sm bx-tada-hover text-primary'></i></a>*@
+                    @*<a class="nav-link" href="#"><i class='bx bx-cog bx-sm text-primary'></i></a>*@
+                    <div class="nav-link d-none" id="btnLogout" onclick="Logout()"><i class="bx bx-log-out bx-sm text-primary"></i></div>
+                    <a class="nav-link" href="@Url.Action("Login","Auth")"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
+                    <div id="nameUserLogged"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    @RenderBody()
+
+
+    <!-- Start Footer -->
+    <footer class="bg-secondary pt-4 footerCustom">
+        <div class="container">
+            <div class="row py-4">
+
+                <div class="col-lg-3 col-12 align-left">
+                    <a class="navbar-brand" href="index.html">
+                        <i class='bx bx-buildings bx-sm text-light'></i>
+                        <span class="text-light h5">Purple</span> <span class="text-light h5 semi-bold-600">Buzz</span>
+                    </a>
+                    <p class="text-light my-lg-4 my-2">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut.
+                    </p>
+                    <ul class="list-inline footer-icons light-300">
+                        <li class="list-inline-item m-0">
+                            <a class="text-light" target="_blank" href="http://facebook.com/">
+                                <i class='bx bxl-facebook-square bx-md'></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item m-0">
+                            <a class="text-light" target="_blank" href="https://www.linkedin.com/">
+                                <i class='bx bxl-linkedin-square bx-md'></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item m-0">
+                            <a class="text-light" target="_blank" href="https://www.whatsapp.com/">
+                                <i class='bx bxl-whatsapp-square bx-md'></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item m-0">
+                            <a class="text-light" target="_blank" href="https://www.flickr.com/">
+                                <i class='bx bxl-flickr-square bx-md'></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item m-0">
+                            <a class="text-light" target="_blank" href="https://www.medium.com/">
+                                <i class='bx bxl-medium-square bx-md'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                    <h3 class="h4 pb-lg-3 text-light light-300">
+                        Our Company</h2>
+                        <ul class="list-unstyled text-light light-300">
+                            <li class="pb-2">
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light" href="index.html">Home</a>
+                            </li>
+                            <li class="pb-2">
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="about.html">About Us</a>
+                            </li>
+                            <li class="pb-2">
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="work.html">Work</a>
+                            </li>
+                            <li class="pb-2">
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i></i><a class="text-decoration-none text-light py-1" href="pricing.html">Price</a>
+                            </li>
+                            <li class="pb-2">
+                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="contact.html">Contact</a>
+                            </li>
+                        </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                    <h2 class="h4 pb-lg-3 text-light light-300">Our Works</h2>
+                    <ul class="list-unstyled text-light light-300">
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="#">Branding</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="#">Business</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="#">Marketing</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="#">Social Media</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="#">Digital Solution</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a class="text-decoration-none text-light py-1" href="#">Graphic</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                    <h2 class="h4 pb-lg-3 text-light light-300">For Client</h2>
+                    <ul class="list-unstyled text-light light-300">
+                        <li class="pb-2">
+                            <i class='bx-fw bx bx-phone bx-xs'></i><a class="text-decoration-none text-light py-1" href="tel:010-020-0340">010-020-0340</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bx-mail-send bx-xs'></i><a class="text-decoration-none text-light py-1" href="mailto:info@company.com">info@company.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="w-100 bg-primary py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-lg-6 col-sm-12">
+                        <p class="text-lg-start text-center text-light light-300">
+                            © Copyright 2021 Purple Buzz Company. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <p class="text-lg-end text-center text-light light-300">
+                            Designed by <a rel="sponsored" class="text-decoration-none text-light" href="https://templatemo.com/" target="_blank"><strong>TemplateMo</strong></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+    <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>-->
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function RedirectoToHome(){
+            let timerInterval
+            Swal.fire({
+              title: 'Se cerró la Sesión!',
+              html: 'Redirigiendo al Inicio <b></b> milliseconds.',
+              timer: 2000,
+              timerProgressBar: true,
+              allowEscapeKey : false,
+              allowOutsideClick: false,
+              //confirmButtonText: 'Ir al Inicio',
+              didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+                  console.log('@Url.Action("Index","Home")');
+                window.location.href = '@Url.Action("Index","Home")';
+              }
+            })
+        }
+        function Logout(){
+            Swal.fire({
+              title: 'Cerrar Sesión',
+              //text: "You won't be able to revert this!",
+              icon: 'warning',
+              allowEscapeKey : false,
+              allowOutsideClick: false,
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Salir!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                localStorage.removeItem('PetRescueDBToken');
+                localStorage.removeItem('PetRescueDBUser');
+                localStorage.removeItem('PetRescueDBDateLogin');
+                RedirectoToHome();
+              }
+            })
+        }
+        $(document).ready(function(){
+            setTimeout(function(){
+                var PetRescueDBToken = localStorage.getItem('PetRescueDBToken');
+                var PetRescueDBUser = JSON.parse(localStorage.getItem('PetRescueDBUser'));
+                var PetRescueDBDateLogin = JSON.parse(localStorage.getItem('PetRescueDBDateLogin'));
+                /*
+                console.log("PetRescueDBToken",PetRescueDBToken);
+                console.log("PetRescueDBUser",PetRescueDBUser);
+                console.log("PetRescueDBDateLogin",PetRescueDBDateLogin);
+                */
+                //console.log("PetRescueDBDateLogin",PetRescueDBDateLogin);
+                if(PetRescueDBDateLogin != null){
+                    $("#nameUserLogged").html(PetRescueDBUser.name);
+                    /*if(PetRescueDBDateLogin){
+                        dt1 = new Date(PetRescueDBDateLogin);
+                    }else{
+                        dt1 = new Date();
+                    }*/
+                    dt1 = new Date(PetRescueDBDateLogin);
+                    dt2 = new Date();
+                    //dt2.setHours(dt2.getHours() + 2);
+                    var horasDiff = diff_hours(dt1, dt2);
+                    //console.log("dt1",dt1);
+                    //console.log("dt2",dt2);
+                    //console.log("horasDiff",horasDiff);
+                    if(horasDiff >= 2 ){
+                        /*
+                        console.log("dt1",dt1);
+                        console.log("dt2",dt2);
+                        */
+                        console.log("Mayor a 2 horas session cerrada");
+                        localStorage.removeItem('PetRescueDBToken');
+                        localStorage.removeItem('PetRescueDBUser');
+                        localStorage.removeItem('PetRescueDBDateLogin');
+                        window.location.href = '@Url.Action("Login","Auth")';
+                    }else{
+                        MostrarParaUserLogueado(PetRescueDBUser);
+                    }
+                }else{
+                    var pathname = window.location.pathname;
+                    if(pathname != "/Auth/Login" && pathname != "/Auth/Register" && pathname != "/Home/Index" && pathname != "/" && pathname != "" && pathname != "/PetOperations/DetalleMascotaIndex/"){
+                        if(pathname = "/User/AprobarUsuariosIndex"){
+                            window.location.href = '@Url.Action("Login","Auth")';
+                        }
+                    }
+                }
+            },125);
+        });
+        
+        function IsJsonString(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        }
+        function diff_hours(dt2, dt1) 
+         {
+          var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+          diff /= (60 * 60);
+          return Math.abs(Math.round(diff));
+         }
+        function MostrarParaUserLogueado(PetRescueDBUser){
+            if(PetRescueDBUser.admin == 1){
+                $("#aprobarUsuarios").removeClass("d-none");
+                $("#PetReport").removeClass("d-none");
+                $("#UserReport").removeClass("d-none");
+            }
+            $("#btnLogout").removeClass("d-none");
+            $("#RegisterPetFound").removeClass("d-none");
+            $("#RegisterPet").removeClass("d-none");
+            $("#RegisterLostPet").removeClass("d-none");
+            $("#RegisterPetForAdoption").removeClass("d-none");
+        }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+﻿<section class="container py-5">
+
+    <h1 class="col-12 col-xl-8 h2 text-left text-primary pt-3">Reporte de Mascotas</h1>
+    <h2 class="col-12 col-xl-8 h4 text-left regular-400">En este espacio podrá ver reportes de las mascotas  </h2>
+    <p class="col-12 col-xl-8 text-left text-muted pb-5 light-300">
+        Seleccione una de las siguientes opciones y haga click en generar reporte.
+    </p>
+
+
+    <div class="row pb-2">
+        <div class="col-xl-12 ">
+            <div class="contact-form row">
+                <div class="col-md-6 mb-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Mascota Registrada del </span>
+                        <input id="inpStartDate" type="text" class="form-control" placeholder="Cualquiera" style="background-color: #6266ea47" aria-label="Username">
+                        <span class="input-group-text">Al</span>
+                        <input id="inpEndDate" type="text" class="form-control" placeholder="Cualquiera" style="background-color: #6266ea47" aria-label="Server">
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-6">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Estado de la Mascota</label>
+                        <select class="form-select" id="inpStatus">
+                            <option value="" selected>--Todos--</option>
+                            <option value="Adopted">Adopted</option>
+                            <option value="Found">Found</option>
+                            <option value="Lost">Lost</option>
+                            <option value="Registered">Registered</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-6 mb-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Dueño de la mascota</span>
+                        <input id="inpOwner" type="text" class="form-control" placeholder="--Todos--" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+
+                </div>
+                <div class="col-lg-6 mb-6">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Tipo de Mascota</label>
+                        <select class="form-select" id="inpType">
+                            <option value="-1" selected>--Todos--</option>
+                            @foreach (var item in ViewBag.petsType)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                            @*<option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>*@
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Nombre de la mascota</span>
+                        <input id="inpPetName" type="text" class="form-control" placeholder="--Todas--" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+
+                </div>
+                <div class="col-lg-6 mb-6">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Edad de la Mascota</label>
+                        <select class="form-select" id="inpAge">
+                            <option value="-1" selected>--Todos--</option>
+                            @foreach (var item in ViewBag.petsAge)
+                            {
+                                <option value="@item.Id">@item.AgeRange</option>
+                            }
+                            @*<option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>*@
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-12 m-auto">
+        <button id="btnRegister" type="submit" onclick="funcRegistrar()" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Generar Reporte</button>
+    </div>
+
+
+    <br />
+    <div id="tableReport"></div>
+    @*<table id="example" class="hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Mascota</th>
+                    <th>Dueño</th>
+                    <th>Fecha de registro</th>
+                    <th>Estado</th>
+                    <th>Tipo</th>
+                    <th>Edad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Mascota</th>
+                    <th>Dueño</th>
+                    <th>Fecha de registro</th>
+                    <th>Estado</th>
+                    <th>Tipo</th>
+                    <th>Edad</th>
+                </tr>
+            </tfoot>
+        </table>*@
+
+
+</section>
+<!-- End Contact -->
+
+
+<script>
+
+    flatpickr("#inpStartDate", {});
+    flatpickr("#inpEndDate", {});
+
+
+    cargarReporte();
+    function cargarReporte() {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("TablePetReport", "Report")',
+            cache: false,
+            success: function (tabla) {
+                $("#tableReport").html(tabla);
+            }
+
+
+        });
+    }
+
+    function funcRegistrar() {
+
+
+            let vStartDate = $("#inpStartDate").val();
+            let vEndDate = $("#inpEndDate").val();
+            let vOwner = $("#inpOwner").val();
+            let vPetName = $("#inpPetName").val();
+            let vStatus = $("#inpStatus").val();
+            let vType = $("#inpType").val();
+            let vAge = $("#inpAge").val();
+
+
+            var formData = new FormData();
+            formData.append("startDate", vStartDate);
+            formData.append("endDate", vEndDate);
+            formData.append("owner", vOwner);
+            formData.append("petName", vPetName);
+            formData.append("status", vStatus);
+            formData.append("idPetType", vType);
+            formData.append("idPetAge", vAge);
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("TablePetReportWithData", "Report")',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (tabla) {
+                $("#tableReport").html(tabla);
+            }
+        });
+    }
+
+
+</script>

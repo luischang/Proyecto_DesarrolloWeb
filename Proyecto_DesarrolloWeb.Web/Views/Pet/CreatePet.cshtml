@@ -1,0 +1,336 @@
+﻿<!-- Start Contact -->
+<section class="container py-5">
+
+    <h1 class="col-12 col-xl-8 h2 text-left text-primary pt-3">¡Registra tu mascota!</h1>
+    <h2 class="col-12 col-xl-8 h4 text-left regular-400">Este es un espacio para que crees a tu mascota en el sistema </h2>
+    <p class="col-12 col-xl-8 text-left text-muted pb-5 light-300">
+        Recuerda que mientras más datos brindes, será mejor para que la gente pueda
+        darse una idea de como es la mascota. Es muy recomendable que subas imágenes y
+        será de mucha ayuda que subas un video para que puedan ver a tu mascota en acción.
+    </p>
+    <form id="myForm" class="needs-validation" novalidate>
+
+        <div class="row pb-4">
+            <!-- Start Contact Form -->
+            <div class="col-lg-8 ">
+                <div class="contact-form row">
+                    @*<form class="contact-form row" method="post" action="#" role="form">*@
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control form-control-lg light-300" id="inpName" name="inputName" placeholder="Nombre" required="required">
+                            <label for="floatingname light-300">Nombre</label>
+                        </div>
+                    </div><!-- End Input Name -->
+
+                    <div class="col-lg-6 mb-4">
+                        
+                        <select required="required" class="custom-select form-select form-select-lg light-300" style="height: calc(3.5rem + 2px);" id="selType">
+                            <option class="light-300" selected disabled value="">Seleccionar Tipo...</option>
+                            @foreach (var item in ViewBag.petsType)
+                            {
+                                <option class="light-300" value="@item.Id">@item.Name</option>
+                            }
+
+                            @*<option class="light-300" value="1">Gato</option>
+                            <option class="light-300" value="2">Perro</option>*@
+                        </select>
+                    </div><!-- End Input Especie -->
+
+                    <div class="col-lg-6 mb-4">
+                        <select required="required" class="custom-select form-select form-select-lg light-300" style="height: calc(3.5rem + 2px);" id="selSex">
+                            <option class="light-300" selected disabled value="">Seleccionar Sexo...</option>
+                            <option class="light-300" value="Hembra">Hembra</option>
+                            <option class="light-300" value="Macho">Macho</option>
+                        </select>
+                    </div><!-- End Input Sexo -->
+
+                    <div class="col-lg-6 mb-4">
+                        <select required="required" class="custom-select form-select form-select-lg light-300" style="height: calc(3.5rem + 2px);" id="selSize">
+                            <option class="light-300" selected disabled value="">Seleccionar Tamaño...</option>
+                            @foreach (var item in ViewBag.petsSize)
+                            {
+                                <option class="light-300" value="@item.Id">@item.Size</option>
+                            }
+                            @*<option class="light-300" value="1">pequeño</option>
+                            <option class="light-300" value="2">mediano</option>
+                            <option class="light-300" value="3">grande</option>*@
+                        </select>
+                    </div><!-- End Input Tamaño -->
+
+                    <div class="col-lg-6 mb-4">
+                        <select required="required" class="custom-select form-select form-select-lg light-300" style="height: calc(3.5rem + 2px);" id="selAge">
+                            <option class="light-300" selected disabled value="">Seleccionar Edad...</option>
+                            @foreach (var item in ViewBag.petsAge)
+                            {
+                                <option class="light-300" value="@item.Id">@item.AgeRange</option>
+                            }
+                            @*<option class="light-300" value="1">cachorro lactante 0 a 2 meses</option>
+                            <option class="light-300" value="2">cachorro adolescente 6 a 18 meses</option>
+                            <option class="light-300" value="3">adulto 18 meses a 7 años</option>
+                            <option class="light-300" value="4">senior 7 años a mas</option>*@
+                        </select>
+                    </div><!-- End Input Edad -->
+
+                    <div class="col-lg-6 mb-4">
+                        <select required="required" class="custom-select form-select form-select-lg light-300" style="height: calc(3.5rem + 2px);" id="selBreed">
+                            <option class="light-300" selected disabled value="">Seleccionar Raza...</option>
+                            @foreach (var item in ViewBag.petsBreed)
+                            {
+                                <option class="light-300" value="@item.Id">@item.Name</option>
+                            }
+                            @*<option class="light-300" value="1">Mestizo</option>*@
+                        </select>
+                    </div><!-- End Input Raza -->
+
+                    <div class="col-12">
+                        <h2 class="col-12 col-xl-12 h4 text-left regular-400">Temperamento </h2>
+                        <p class="col-12 col-xl-12 text-left text-muted light-300">
+                            En el siguiente recuadro ingresa el temperamento de tu mascota.
+                            Por ejemplo: Alegre, jugueton, etc.
+                        </p>
+                        <p class="text-primary">Separa cada palabra con una coma.</p>
+                        <div class="form-floating mb-4">
+                            <input id="inpTemperament" type="text" class="form-control form-control-lg light-300" style="height: calc(3.5rem + 2px) !important;" data-role="tagsinput" />
+                        </div>
+                    </div><!-- End Input Temperamento -->
+                    <div class="col-12">
+                        <div class="form-floating mb-4">
+                            <input id="inpUrl" type="text" class="form-control form-control-lg light-300" id="floatingsubject" name="inputUrl" placeholder="UrlVideo">
+                            <label for="floatingsubject light-300">URL Video (YouTube)</label>
+                        </div>
+                    </div><!-- End Input URL Video -->
+
+                    <div class="col-12">
+                        <div class="form-floating mb-4">
+                            <input id="files" name="files" type="file" size="1" multiple onchange="uploadFiles('files');" enctype="multipart/form-data" />
+                            @*<input type="text" class="form-control form-control-lg light-300" id="floatingsubject" name="inputImage" placeholder="Imagen">
+                            <label for="floatingsubject light-300">Imagen</label>*@
+                        </div>
+                    </div><!-- End Input Imagen -->
+                    <div class="col-12">
+                        <div >
+                            <img id="previewImg0" height="100" width="100">
+                            <img id="previewImg1" height="100" width="100">
+                            <img id="previewImg2" height="100" width="100">
+                        </div>
+
+                    </div><!-- End Input Imagen -->
+
+                    <div class="col-md-12 col-12 m-auto text-end">
+                        <button id="btnRegister" type="submit" onclick="funcRegistrar()" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Registrar</button>
+                    </div>
+                </div>
+                @*</form>*@
+            </div>
+            <!-- End Contact Form -->
+        </div>
+    </form>
+
+    @*<form id="myForm" class="needs-validation" novalidate>
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input type="text" class="form-control" id="validationCustom01" value="" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit" onclick="funcRegistrar2(this)">Submit form</button>
+        </div>
+    </form>*@
+
+</section>
+<!-- End Contact -->
+
+
+<script>
+    var PetRescueDBUser = JSON.parse(localStorage.getItem('PetRescueDBUser'));
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    } else {
+                        event.preventDefault()
+                        event.stopPropagation()
+
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+
+    function funcRegistrar() {
+        var validation = $('#myForm')[0].checkValidity();
+        //alert("entro al form " + validation);
+        //console.log("PetRescueDBUser", PetRescueDBUser);
+        //alert(PetRescueDBUser.id);
+        if (validation) {
+
+
+        let vName = $("#inpName").val();
+        let vType = $("#selType").val();
+        let vSex = $("#selSex").val();
+        let vSize = $("#selSize").val();
+        let vAge = $("#selAge").val();
+        let vBreed = $("#selBreed").val();
+        let vTemperament = $("#inpTemperament").val();
+        let vUrl = $("#inpUrl").val();
+
+        //Para la Imagen
+        var input = document.getElementById("files");
+        var files = input.files;
+        var formData = new FormData();
+
+        //Guardando todo en un formData
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+            formData.append("name", vName);
+            formData.append("idType", vType);
+            formData.append("sex", vSex);
+            formData.append("idSize", vSize);
+            formData.append("idAge", vAge);
+            formData.append("idBreed", vBreed);
+            formData.append("temperament", vTemperament);
+            formData.append("url", vUrl);
+            formData.append("idUser", PetRescueDBUser.id);
+        //
+        //alert(vName);
+        //alert(vName);
+        //alert(vType);
+        //alert(vSex);
+        //alert(vSize);
+        //alert(vAge);
+        //alert(vBreed);
+        //alert(vTemperament);
+        //alert(vUrl);
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("Register","Pet")',
+            data: formData,
+            //data: {
+            //    name: vName,
+            //    idType: vType,
+            //    sex: vSex,
+            //    idSize: vSize,
+            //    idAge: vAge,
+            //    idBreed: vBreed,
+            //    temperament: vTemperament,
+            //    url: vUrl,
+            //    images: files[0]
+            //},
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (exito) {
+                if (exito) {
+                    //alert("Se registro correctamente");
+                    //cargarListadoClientes();
+
+                    @*newUrl = '@Url.Action("Index", "Home")';
+                    location.href = newUrl;*@
+
+                    redirectToHome()
+
+                } else {
+                    alert("Error en la transaccion");
+                }
+            }
+        });
+        }
+    }
+
+
+
+
+    //////////////////////
+
+    function setPreviewImage(file, count) {
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                $("#previewImg" + count).attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function uploadFiles(inputId) {
+
+
+
+        for (i = 0; i < 3; i++) {
+            var file = $("input[type=file]").get(0).files[i];
+            setPreviewImage(file, i);
+        }
+        return false;
+
+
+
+        /////////////////////
+        //var input = document.getElementById(inputId);
+        //var files = input.files;
+        //var formData = new FormData();
+
+        //for (var i = 0; i != files.length; i++) {
+        //    formData.append("files", files[i]);
+        //}
+
+        //$.ajax(
+        //    {
+        //        url: "Home/uploader",
+        //        data: formData,
+        //        processData: false,
+        //        contentType: false,
+        //        type: "POST",
+        //        success: function (data) {
+        //            alert("Files Uploaded!");
+        //        }
+        //    }
+        //);
+    }
+
+    function redirectToHome() {
+        let timerInterval
+        Swal.fire({
+          title: 'Registro Exitoso!',
+          html: 'Redirigiendo al Inicio <b></b> milliseconds.',
+          timer: 2000,
+          timerProgressBar: true,
+          allowEscapeKey : false,
+          allowOutsideClick: false,
+          //confirmButtonText: 'Ir al Inicio',
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            window.location.href = '@Url.Action("Index","Home")';
+          }
+        })
+    }
+
+</script>

@@ -1,0 +1,208 @@
+﻿<section class="container py-5">
+
+    <h1 class="col-12 col-xl-8 h2 text-left text-primary pt-3">Reporte de Usuarios</h1>
+    <h2 class="col-12 col-xl-8 h4 text-left regular-400">En este espacio podrá ver reportes de los usuarios  </h2>
+    <p class="col-12 col-xl-8 text-left text-muted pb-5 light-300">
+        Seleccione una de las siguientes opciones y haga click en generar reporte.
+    </p>
+
+    <div class="row pb-4">
+        <!-- Start Contact Form -->
+        <div class="col-lg-8 ">
+            <div class="contact-form row">
+                @*<form class="contact-form row" method="post" action="#" role="form">*@
+
+                <div class="col-lg-12 mb-4">
+                    @*<p class="col-12 col-xl-12 text-left text-muted light-300">
+                            Esta opción le permitirá ver los usuarios registrados en un determinado rango de fechas.
+                        </p>*@
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked="checked">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Usuarios Registrados
+                    </label>
+                    <p class="col-12 col-xl-12 text-left text-muted light-300">
+                        Esta opción le permitirá ver los usuarios registrados en un determinado rango de fechas.
+                    </p>
+                    <div class="col-lg-4 mb-2">
+                        <input id="inpStartDate" type="text" class="form-control form-control-lg light-300" style="height: calc(3.5rem + 2px) !important;" value="Fecha inicio" />
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <input id="inpEndDate" type="text" class="form-control form-control-lg light-300" style="height: calc(3.5rem + 2px) !important;" value="Fecha fin" />
+                    </div><!-- End Input -->
+
+                </div><!-- End Input Especie -->
+
+                <div class="col-lg-12 mb-4">
+                    @*<p class="col-12 col-xl-12 text-left text-muted light-300">
+                            Esta opción le permitirá ver los usuarios registrados en un determinado rango de fechas.
+                        </p>*@
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Usuario Específico
+                    </label>
+                    <p class="col-12 col-xl-12 text-left text-muted light-300">
+                        Ingrese el nombre o apellido del usuario para encontrar coincidencias.
+                    </p>
+                    <div class="col-lg-6 mb-4">
+                        <input id="inpSearchUser" type="text" class="form-control form-control-lg light-300" style="height: calc(3.5rem + 2px) !important;" value="" />
+                    </div>
+
+                </div><!-- End Input Especie -->
+
+
+
+                <div class="col-md-12 col-12 m-auto">
+                    <button id="btnRegister" type="submit" onclick="funcRegistrar()" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Generar Reporte</button>
+                </div>
+
+
+            </div>
+            @*</form>*@
+        </div>
+        <!-- End Contact Form -->
+    </div>
+
+    @*<input id="myID" type="text" />*@
+
+    <div id="tableReport">
+
+
+    </div>
+    @*<table id="example" class="hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de registro</th>
+                <th>Cantidad de mascotas</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyTable">
+            @foreach (var item in ViewBag.usersReport)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.LastName</td>
+                    <td>@item.RegistrationDate</td>
+                    <td>@item.petsCount</td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de registro</th>
+                <th>>Cantidad de mascotas</th>
+            </tr>
+        </tfoot>
+    </table>*@
+
+
+</section>
+<!-- End Contact -->
+
+
+<script>
+
+    flatpickr("#inpStartDate", {});
+    flatpickr("#inpEndDate", {});
+
+    cargarReporte();
+    function cargarReporte() {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("TableUserReport", "Report")',
+            cache: false,
+            success: function (tabla) {
+                $("#tableReport").html(tabla);
+            }
+
+
+        });
+    }
+
+
+
+
+    //loadTable();
+    //function loadTable() {
+    //    var table = $("#example").DataTable({
+    //        lengthChange: false,
+    //        buttons: ['copy', 'excel', 'pdf', 'colvis']
+    //    });
+    //    table.buttons().container().insertBefore("#example_filter");
+    //}
+
+
+    function funcRegistrar() {
+        //flexRadioDefault1
+        //flexRadioDefault2
+        //alert($("#flexRadioDefault1").is(":checked"))
+        //alert($("#flexRadioDefault2").is(":checked"))
+
+        var radioFechas = $("#flexRadioDefault1").is(":checked");
+        var radioTexto = $("#flexRadioDefault2").is(":checked");
+
+
+
+
+        if (radioFechas) {
+            //busqueda por fechas
+            let vStartDate = $("#inpStartDate").val();
+            let vEndDate = $("#inpEndDate").val();
+
+            var formData = new FormData();
+            formData.append("startDate", vStartDate);
+            formData.append("endDate", vEndDate);
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("UserReportDate", "Report")',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (tabla) {
+                $("#tableReport").html(tabla);
+            }
+        });
+        }
+        else {
+            //busqueda por usuarios
+            let vText = $("#inpSearchUser").val();
+
+            var formData = new FormData();
+            formData.append("text", vText);
+
+            $.ajax({
+            type: "Post",
+            url: '@Url.Action("UserReportName", "Report")',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+                success: function (tabla) {
+                    $("#tableReport").html(tabla);
+                @*if (datos) {
+                    alert(datos);
+                    //alert("Se registro correctamente");
+                    //cargarListadoClientes();
+
+                    //newUrl = '@Url.Action("Examples", "Home")';
+                    //location.href = newUrl;
+
+                } else {
+                    alert("La mascota ya esta registrada para adopción.");
+                }*@
+            }
+        });
+        }
+
+
+    }
+
+
+
+</script>

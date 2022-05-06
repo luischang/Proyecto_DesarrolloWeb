@@ -1,0 +1,84 @@
+﻿<section class="container py-5">
+
+    <div class="row pb-4">
+        <h2 class="col-12 col-xl-8 h4 text-left regular-400">Input </h2>
+        <div class="col-lg-6 mb-4">
+            <div class="form-floating">
+                <input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputName" placeholder="Nombre">
+                <label for="floatingname light-300">Nombre</label>
+            </div>
+        </div><!-- End Input -->
+    </div>
+
+    <div class="row pb-4">
+        <h2 class="col-12 col-xl-8 h4 text-left regular-400">Select</h2>
+        <div class="col-lg-6 mb-4">
+            <select class="custom-select form-select form-select-lg mb-4 light-300" style="height: calc(3.5rem + 2px);" id="inputGroupSelect01">
+                <option class="light-300" selected>Seleccionar Tipo...</option>
+                <option class="light-300" value="1">Gato</option>
+                <option class="light-300" value="2">Perro</option>
+            </select>
+        </div><!-- End Select -->
+    </div>
+
+    <div class="row pb-4">
+        <h2 class="col-12 col-xl-8 h4 text-left regular-400">Input Tag </h2>
+        <div class="col-lg-6 mb-4">
+            <input type="text" class="form-control form-control-lg light-300" style="height: calc(3.5rem + 2px) !important;" data-role="tagsinput" />
+        </div><!-- End Input -->
+    </div>
+
+
+    <h3>Image test</h3>
+
+    <input id="files" name="files" type="file" size="1" multiple onchange="uploadFiles('files');" />
+    <img id="previewImg" src="/examples/images/transparent.png" alt="Placeholder" height="80" width="80">
+
+</section>
+
+
+<script>
+
+
+    function uploadFiles(inputId) {
+
+        var file = $("input[type=file]").get(0).files[0];
+
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                $("#previewImg").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+
+
+        /////////////////////
+        var input = document.getElementById(inputId);
+        var files = input.files;
+        var formData = new FormData();
+
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        $.ajax(
+            {
+                url: "Home/uploader",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success: function (data) {
+                    alert("Files Uploaded!");
+                }
+            }
+        );
+    }
+
+
+
+
+</script>

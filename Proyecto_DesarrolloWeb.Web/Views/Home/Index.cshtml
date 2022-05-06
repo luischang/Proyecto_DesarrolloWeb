@@ -1,0 +1,135 @@
+﻿   <!-- Start Banner Hero -->
+<div class="banner-wrapper bg-light">
+    <div id="index_banner" class="banner-vertical-center-index container-fluid pt-5">
+
+        <!-- Start slider -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+
+                    <div class="py-5 row d-flex align-items-center">
+                        <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
+                            <h1 style="color: #ffffff !important; font-weight: 900" class="banner-heading h1 text-secondary display-3 mb-0 pb-5 mx-0 px-0 light-300 typo-space-line">
+                                <strong>¡Adopta, no compres!</strong>
+
+                            </h1>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-item">
+
+                    <div class="py-5 row d-flex align-items-center">
+                        <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
+                            <h1 style="color: #ffffff !important; font-weight: 900" class="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
+                                <strong>¡Ya somos más de 500 adoptados en este mes!</strong>
+                            </h1>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <a class="carousel-control-prev text-decoration-none" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                <i class='bx bx-chevron-left'></i>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next text-decoration-none" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                <i class='bx bx-chevron-right'></i>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+        <!-- End slider -->
+
+    </div>
+</div>
+<!-- End Banner Hero -->
+<!-- Start Service -->
+
+
+<section class="container py-5">
+    <div class="container-fluid pb-3">
+        <div class="row">
+            <h2 class="h2 text-center col-12 py-5 semi-bold-600">Mascotas en Adopción</h2>
+        </div>
+    </div>
+    <div class="row projectss gx-lg-5" id="Registered">
+        <div class="text-center">No hay Mascotas en Adopción</div>
+    </div>
+</section>
+<section class="container py-5">
+    <div class="container-fluid pb-3">
+        <div class="row">
+            <h2 class="h2 text-center col-12 py-5 semi-bold-600">Mascotas perdidas</h2>
+        </div>
+    </div>
+    <div class="row projectss gx-lg-5" id="Lost">
+        <div class="text-center">No hay Mascotas perdidas</div>
+    </div>
+</section>
+<script>
+    function IrDetallePet(Identification) {
+        var url = '@Url.Action("DetalleMascotaIndex", "PetOperations", new { id = "_id_" })'.replace('_id_', '');
+        url += "?Identification="+Identification;
+        window.location.href = url;
+    }
+    $(document).ready(function(){
+        
+        function GetMascotasByStatus(statusDiv) {
+            $.ajax({
+                type: "Post",
+                url: '@Url.Action("GetMascotasByStatus","Home")',
+                data:{
+                    status:statusDiv
+                },
+                success: function (data) {
+                        console.log("data",data);
+                    if (data.code == 200) {
+                        var html = '';
+                        $.each(data.data, function(key, value) {
+                            //console.log("key",key);
+                            //console.log("value",value);
+                            html+='<div class="col-sm-6 col-lg-4 text-decoration-none project marketing social business mb-4">';
+                            html+='<div class="service-work overflow-hidden card mb-5 mx-5 m-sm-0">';
+                            if(value.petImage[0]){
+                                html+='<img class="card-img-top" src="data:image/jpeg;base64,' + value.petImage[0].photo + '" alt="...">';
+                            }
+                            html+='<div class="card-body">';
+                            html+='<h5 class="card-title light-300 text-dark"><strong>' + value.name + '</strong></h5>';
+                            html+='<p class="card-text light-300 text-dark">';
+                            html+='Dueño: ' + value.owner + '<br>';
+                            html+='Edad: ' + value.age + '<br>';
+                            html+='Tipo de Mascota: ' + value.type + '<br>';
+                            html+='</p>';
+                            html+='<span onclick=\'IrDetallePet("' + value.id + '")\' class="text-decoration-none text-primary light-300">';
+                            html+='Ver Información <i class="bx bxs-hand-right ms-1"></i>';
+                            html+='</span>';
+                            html+='</div>';
+                            html+='</div>';
+                            html+='</div>';
+                        });
+                        setTimeout(function(){
+                            $("#"+statusDiv).html(html);
+                            console.log("statusDiv",statusDiv);
+                        },500);
+                    } else {
+                        alert(data.msg);
+                    }
+                },error: function (data) {
+                    console.log("data",data);
+                }
+            });
+        }
+        console.log("GetMascotasByStatus");
+        GetMascotasByStatus("Registered");
+        GetMascotasByStatus("Lost");
+    });
+</script>

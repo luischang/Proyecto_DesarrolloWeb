@@ -1,0 +1,43 @@
+﻿<table id="example" class="hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha de registro</th>
+            <th>Cantidad de mascotas</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyTable">
+        @foreach (var item in ViewBag.usersReport)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.LastName</td>
+                <td>@item.RegistrationDate</td>
+                <td>@item.petsCount</td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha de registro</th>
+            <th>>Cantidad de mascotas</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+
+    loadTable();
+    function loadTable() {
+        var table = $("#example").DataTable({
+            lengthChange: false,
+            buttons: ['copy', 'excel', 'pdf', 'colvis']
+        });
+        table.buttons().container().insertBefore("#example_filter");
+    }
+
+</script>
